@@ -1,0 +1,468 @@
+package emp;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.*;  
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import org.w3c.dom.html.HTMLTableCaptionElement;
+
+import java.util.Date;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime; 
+
+import admin.Admin;
+import admin.Edititem;    
+public class Bill {
+	JTable table = new JTable(800,5);
+	 JTextField tf=new JTextField();
+    JTextArea tf2=new JTextArea();
+	public static void main (String[]args) {
+	    Bill master= new Bill();
+		master.Bill1();
+	}
+	 public static void removeAllRows(JTable table) {
+
+	        DefaultTableModel model = (DefaultTableModel) table.getModel();
+	        	int rowCount=table.getRowCount();
+	        for (int row = rowCount-1; row >=0; row--) {
+	            model.removeRow(row);
+	        }
+
+	    }
+	public void Bill1() 
+	{
+		 JFrame f=new JFrame("GoGreen"); 
+		   
+		    JPanel panel=new JPanel();  
+		    
+		    final JTextArea receiptList=new JTextArea();
+		    
+		    DefaultTableModel model =new DefaultTableModel();
+		 
+		    JLabel l1,l2,l3,l4;
+		    JLabel lid=new JLabel();
+		    JLabel lquantity=new JLabel();
+		    JLabel lprice=new JLabel();
+		    f.getContentPane().setBackground(Color.CYAN);
+		    
+		    lid.setText("");
+		    lquantity.setText("");
+		    lprice.setText("");
+		    
+		    JTextArea tf3=new JTextArea();
+		    JTextArea tf4=new JTextArea();
+		    JTextArea pannelSize =new JTextArea();
+		    JTextArea diw=new JTextArea();
+		   JTextArea tid=new JTextArea();
+		 JTextArea tprice=new JTextArea();
+		     JTextArea sample=new JTextArea();
+		   JTextArea tquantity=new JTextArea();
+		    JLabel jl=new JLabel();
+		    jl.setText("Generate Bill");
+		    jl.setBounds(175,30,300,30);
+		    jl.setFont(new Font("Verdana", Font.BOLD ,22));
+		    jl.setForeground(Color.BLACK);
+		    tf.setBounds(220,90, 150,25); 
+		    tf2.setBounds(220,140,150,25);
+		    diw.setBounds(600,500,150,25);
+		    diw.setVisible(false);
+		    tid.setBounds(400,90,300,30);
+		    tprice.setBounds(400,140,300,30);
+		    tquantity.setBounds(400,190,300,30);
+		    sample.setBounds(400,230,300,30);
+		    pannelSize.setBounds(400,240,300,30);
+		    tid.setVisible(false);
+		    tprice.setVisible(false);
+		    tquantity.setVisible(false);
+		  
+		    l1=new JLabel("Product");  
+	        l1.setBounds(140,90,300,30);
+	        l1.setFont(new Font("Verdana", Font.BOLD ,15)); 
+	        l2=new JLabel("Quantity");
+	        l2.setBounds(140,140,300,30);
+	        l2.setFont(new Font("Verdana", Font.BOLD ,15)); 
+	     
+		    JButton b4=new JButton("Enter");
+		    JButton b5=new JButton("Clear");
+		    JButton b6=new JButton("Home");
+		    JButton b7=new JButton("Print");
+		    JButton b8=new JButton("Total Price");
+		    JButton b9=new JButton("LOGOUT");
+		   
+		    b4.setBounds(155,200,85,30);
+		    b5.setBounds(270,200,85,30);  
+		    b6.setBounds(215,240,85,30); 
+		    b7.setBounds(610,560,100,30);
+		    b8.setBounds(770,560,100,30);
+		    b9.setBounds(930,560,100,30);
+		    panel.setBounds(600,80,460,430);    
+		    panel.setBackground(Color.BLUE);
+		    b4.setForeground(Color.BLACK); 
+		    b5.setForeground(Color.BLACK); 
+		    b6.setForeground(Color.BLACK); 
+		    b7.setForeground(Color.BLACK); 
+		    b8.setForeground(Color.BLACK); 
+		    b9.setForeground(Color.BLACK); 
+		    receiptList.setBounds(110,280,300,390);
+		    receiptList.setBackground(Color.WHITE);
+		    try{  
+		    	
+		    	model.addColumn("id");
+		    	model.addColumn("Productname");
+		    	model.addColumn("Description");
+		    	model.addColumn("Price");
+		    	model.addColumn("Quantity");
+		    	
+		    	Class.forName("com.mysql.cj.jdbc.Driver");  
+		    	Connection con=DriverManager.getConnection(  
+		    			"jdbc:mysql://localhost:3306/smarketdb","root","#Root123");  
+		    	Statement st=con.createStatement();  
+		    	
+		      ResultSet rs=st.executeQuery("SELECT * FROM itemlist"); 
+		    
+		    	int i=0;
+		    	while(rs.next())  {
+		    	
+		    	model.addRow(new Object[] {
+		    			rs.getString("id"),
+		    			rs.getString("Productname"),
+		    			rs.getString("Description"),
+		    			rs.getString("Price"),
+		    			rs.getString("Quantity")
+		    	});
+		    	 //i=i+1;
+		    	}
+		    	rs.close();
+		    	st.close();
+		    	con.close();
+		    	
+		    	table.setModel(model);
+		    	table.setAutoResizeMode(0);
+		    	
+		    	table.getColumnModel().getColumn(0).setPreferredWidth(50);
+		    	table.getColumnModel().getColumn(1).setPreferredWidth(100);	
+		    	table.getColumnModel().getColumn(2).setPreferredWidth(100);
+		    	table.getColumnModel().getColumn(3).setPreferredWidth(100);
+		    	table.getColumnModel().getColumn(4).setPreferredWidth(100);
+		    	  table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		    	JScrollPane table1 = new JScrollPane(table);
+		    	
+		    	table1.setVisible(true);
+		    	//table.add(table1);
+		    	table.setSize(500,500);
+		   
+		    	table.setSize(600,250);
+		     panel.add(table1);
+		        
+		    }catch(Exception e){ System.out.println(e);}
+		    
+		     //get data from table
+		    table.addMouseListener(new MouseAdapter()
+		    		{
+		    	@Override
+		    	 public void mouseClicked(MouseEvent evt)
+					{
+						int selectedRowIndex=table.getSelectedRow();
+						tf.setText(table.getModel().getValueAt(selectedRowIndex,1).toString());
+						tid.setText(table.getModel().getValueAt(selectedRowIndex,0).toString());
+						tquantity.setText(table.getModel().getValueAt(selectedRowIndex,4).toString());
+						tprice.setText(table.getModel().getValueAt(selectedRowIndex,3).toString());
+						lid.setVisible(false);
+						lquantity.setVisible(false);
+					}
+		    		});
+		   
+		    //add to payslip
+		    b4.addActionListener(new ActionListener(){  
+		    	int i=0;
+				public void actionPerformed(ActionEvent e){  
+					if(tf.getText().isEmpty()||tf2.getText().isEmpty())
+					{
+						JOptionPane.showMessageDialog(b4,"Select Product Item", "Quantity missmatch!", 1);
+					}
+					else
+					{
+					 int price=Integer.parseInt(tprice.getText());
+					 int requiredQuantity=Integer.parseInt(tf2.getText());
+					 int availableQuantity=Integer.parseInt(tquantity.getText());
+					 if(availableQuantity>=requiredQuantity)
+					 {
+						 if(pannelSize.getText().isEmpty())
+						 {
+							 i++;
+						 }
+						 else
+						 {
+							 i=0;
+							 i++;
+							 pannelSize.setText("");
+						 }
+						 //i++;
+						 if(i==1)
+						 {
+						 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+						   LocalDateTime now = LocalDateTime.now(); 
+						   sample.setText(now.toString());
+						 }
+						   
+						   Date obj=new Date();
+							 String date=obj.toString();
+						   
+							
+							 int productPrice=price*requiredQuantity;
+							 int id=Integer.parseInt(tid.getText());
+							 
+						 //Add order Detail
+						   try{
+			            	    PreparedStatement pst = null;
+				            	Class.forName("com.mysql.jdbc.Driver");
+				            	
+								Connection orderconn=DriverManager.getConnection(  
+				            			"jdbc:mysql://localhost:3306/smarketdb","root","#Root123");
+								
+								 // 1. Create table if not exists
+							    Statement st = orderconn.createStatement();
+							    st.executeUpdate(
+							        "CREATE TABLE IF NOT EXISTS orderedlist (" +
+							        "Id INT AUTO_INCREMENT PRIMARY KEY," +
+							        "PaymentDate VARCHAR(255)," +
+							        "ProductName VARCHAR(255)," +
+							        "Price INT," +
+							        "Quantity INT," +
+							        "OrderId VARCHAR(255)," +
+							        "TotalPrice INT)"
+							    );
+							    
+				            	String sql = "insert into orderedlist(PaymentDate, ProductName, Price,Quantity,OrderId,TotalPrice) values(?,?,?,?,?,?)";
+				            	
+				                pst = orderconn.prepareStatement(sql);
+				                pst.setString(1, date.toString());
+				                pst.setString(2, tf.getText());
+				                pst.setInt(3, price);
+				                pst.setInt(4, requiredQuantity);
+				                pst.setString(5, sample.getText());
+				                pst.setInt(6, productPrice);
+				                pst.execute();
+				                orderconn.close();
+				            }catch(Exception e1){
+				               // JOptionPane.showMessageDialog(null, e);
+				            }
+						   
+						   //Update Quantity in Item List
+						   int newQuantity=availableQuantity-requiredQuantity;
+						   try{
+			            	    PreparedStatement pst = null;
+				            	Class.forName("com.mysql.jdbc.Driver");
+				            	
+								Connection quantityconn=DriverManager.getConnection(  
+				            			"jdbc:mysql://localhost:3306/smarketdb","root","#Root123");
+			
+							    
+				            	String sql = "Update itemlist SET Quantity=? where Id=?";
+				            	
+				                pst = quantityconn.prepareStatement(sql);
+				                pst.setInt(1, newQuantity);
+				                pst.setInt(2, id);
+				                pst.execute();
+				                quantityconn.close();
+				            }catch(Exception e1){
+				               // JOptionPane.showMessageDialog(null, e);
+				            }
+						 
+						 //Get Product List
+						   try{  
+							   table.removeAll();
+							   removeAllRows(table);
+							   //table.
+						    	model.addColumn("id");
+						    	model.addColumn("Productname");
+						    	model.addColumn("Description");
+						    	model.addColumn("Price");
+						    	model.addColumn("Quantity");
+						    	
+						    	Class.forName("com.mysql.cj.jdbc.Driver");  
+						    	Connection productcon=DriverManager.getConnection(  
+						    			"jdbc:mysql://localhost:3306/smarketdb","root","#Root123");  
+						    	Statement st=productcon.createStatement();  
+						    	
+						      ResultSet rs=st.executeQuery("SELECT * FROM itemlist"); 
+						    
+						    	while(rs.next())  {
+						    	
+						    	model.addRow(new Object[] {
+						    			rs.getString("id"),
+						    			rs.getString("Productname"),
+						    			rs.getString("Description"),
+						    			rs.getString("Price"),
+						    			rs.getString("Quantity")
+						    	});
+						    	 //i=i+1;
+						    	}
+						    	rs.close();
+						    	st.close();
+						    	productcon.close();
+						    	
+						    	table.setModel(model);
+						    	table.setAutoResizeMode(0);
+						    	
+						    	table.getColumnModel().getColumn(0).setPreferredWidth(50);
+						    	table.getColumnModel().getColumn(1).setPreferredWidth(100);	
+						    	table.getColumnModel().getColumn(2).setPreferredWidth(100);
+						    	table.getColumnModel().getColumn(3).setPreferredWidth(100);
+						    	table.getColumnModel().getColumn(4).setPreferredWidth(100);
+						    	  table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+						    	JScrollPane table1 = new JScrollPane(table);
+						    	
+						    	table1.setVisible(true);
+						    	//table.add(table1);
+						    	table.setSize(490,500);
+						   
+						    	table.setSize(600,250);
+						     panel.add(table1);
+						        
+						    }catch(Exception exc){ System.out.println(exc);}
+						 
+						 
+						 
+						 
+						 
+						 
+						
+						 if(i==1)
+						 {
+							 
+							 
+						
+							 
+							 receiptList.setText(receiptList.getText()+"  ******************************************************\n ");
+							 receiptList.setText(receiptList.getText()+"                          Payment Receipt                   \n ");
+							 receiptList.setText(receiptList.getText()+" ******************************************************\n ");
+							 receiptList.setText(receiptList.getText()+"  Receipt Date : "+ date +"\n ");
+							 receiptList.setText(receiptList.getText()+i+"      "+tf.getText()+"        "+price+"        "+requiredQuantity+"        "+ productPrice+"\n");
+							 String amount= Integer.toString(productPrice);
+							 diw.setText(amount);
+							 //int a=Integer.parseInt(tf2.getText());
+						 }
+						 else
+						 {
+							 receiptList.setText(receiptList.getText()+i+"      "+tf.getText()+"        "+price+"        "+requiredQuantity+"        "+ productPrice+"\n");
+							 int totalprice=Integer.parseInt(diw.getText());
+							 int finalAmount=totalprice+productPrice;
+							 String amount= Integer.toString(finalAmount);
+							 diw.setText(amount);
+						 }
+						 
+					 }
+					 else
+					 {
+						 JOptionPane.showMessageDialog(b4,"Available quantity is less than required", "Quantity missmatch!", 1);
+					 }
+					}
+					 
+					 
+				        }  
+				    });
+		    
+		    b8.addActionListener(new ActionListener(){  
+				public void actionPerformed(ActionEvent e){  
+					
+					int totalprice=Integer.parseInt(diw.getText());
+					 String amount= Integer.toString(totalprice);
+					 diw.setText(amount);
+					 receiptList.setText(receiptList.getText()+"  *****************************************************\n ");
+					 receiptList.setText(receiptList.getText()+"  Total Price : \t\t"+ diw.getText() +"\n ");
+					 receiptList.setText(receiptList.getText()+"  *****************************************************\n ");
+					 receiptList.setText(receiptList.getText()+"                     Thank You                   \n ");
+					 
+				        }  
+				    });
+		    
+		    b7.addActionListener(new ActionListener(){  
+				public void actionPerformed(ActionEvent e){  
+					
+					try {
+						receiptList.print();
+					}
+					catch(Exception ex){ System.out.println(ex);}
+					
+					
+				        }  
+				    });
+		    b9.addActionListener(new ActionListener(){  
+				public void actionPerformed(ActionEvent e){  
+					
+						f.dispose();
+						Logine monster= new Logine();
+						monster.Logine();
+					}
+					});
+					
+		   
+				
+		    
+    	    	b5.addActionListener(new ActionListener() 
+    	    	{
+    	    		@Override
+    	            public void actionPerformed(ActionEvent e)
+    	    		{
+    	    			tf.setText("");
+    	    			tf2.setText("");
+    	    			tf3.setText("");
+    	    		tf4.setText("");
+    	    		diw.setText("");
+    	    		tid.setText("");
+    	    		tprice.setText("");
+    	    		tquantity.setText("");
+    	    		sample.setText("");
+    	    		receiptList.setText("");
+    	    		pannelSize.setText("0");
+    	    		}
+    	    	});
+    	    
+		    
+
+		    
+		    
+		    
+		    f.add(panel); 
+		    f.add(receiptList);
+		    
+		    sample.setVisible(false);
+		    pannelSize.setVisible(false);
+		    f.add(l1);f.add(tf); 
+		    f.add(l2);
+		    f.add(lid);
+		    f.add(lquantity);
+		    f.add(tid);
+		    f.add(diw);
+		    f.add(b8);
+		    f.add(sample);
+		    f.add(tprice);
+		    f.add(tquantity);
+		    f.add(pannelSize);
+		    f.add(b4);f.add(b5); 
+		  //  f.add(b6);
+		    f.add(tf2);f.add(tf3);f.add(tf4);f.add(jl);
+		    f.add(b7);
+		    f.add(b9);
+		    f.setSize(1200,730);  
+		    f.setLayout(null);  
+		    f.setVisible(true);
+		    f.setResizable(false);
+		
+	
+
+}
+	public void Bill() {
+		// TODO Auto-generated method stub
+		
+	}
+}
+
+	
+	

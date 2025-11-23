@@ -1,0 +1,140 @@
+package admin;
+import javax.swing.*;
+import java.awt.*;
+import Login.MainScreen;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+ class LoginFrame extends JFrame implements ActionListener {
+
+    Container container = getContentPane();
+ 
+    JLabel userLabel = new JLabel("USERNAME");
+    JLabel passwordLabel = new JLabel("PASSWORD");
+    JTextField userTextField = new JTextField();
+    JPasswordField passwordField = new JPasswordField();
+    JButton loginButton = new JButton("LOGIN");
+    JButton resetButton = new JButton("RESET");
+    JButton Home = new JButton("Home");
+    JCheckBox showPassword = new JCheckBox("Show Password");
+   
+
+
+    LoginFrame() {
+        setLayoutManager();
+        setLocationAndSize();
+        addComponentsToContainer();
+        addActionEvent();
+
+    }
+
+    public void setLayoutManager() {
+        container.setLayout(null);
+    }
+
+    public void setLocationAndSize() {
+        userLabel.setBounds(70, 100, 100, 30);
+      
+        passwordLabel.setBounds(70, 150, 100, 30);
+        userTextField.setBounds(170, 100, 150, 30);
+        passwordField.setBounds(170, 150, 150, 30);
+        userLabel.setForeground(Color.BLACK);
+        
+        passwordLabel.setForeground(Color.BLACK);
+        showPassword.setBounds(135, 205, 120, 20);
+        loginButton.setBounds(70, 255, 100, 30);
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setBackground(Color.BLUE);
+        resetButton.setBounds(220, 255, 100, 30);
+        resetButton.setForeground(Color.WHITE);
+        resetButton.setBackground(Color.RED);
+        Home.setBounds(145, 300, 100, 30);
+        Home.setForeground(Color.BLACK);
+       
+ 
+
+    }
+
+    public void addComponentsToContainer() {
+        container.add(userLabel);
+        container.add(passwordLabel);
+        container.add(userTextField);
+        container.add(passwordField);
+        container.add(showPassword);
+        container.add(loginButton);
+        container.add(resetButton);
+        container.add(Home);
+        
+    }
+
+    public void addActionEvent() {
+        loginButton.addActionListener(this);
+        resetButton.addActionListener(this);
+        showPassword.addActionListener(this);
+        Home.addActionListener(this); 
+      
+    }
+
+
+    @SuppressWarnings("deprecation")
+	@Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == loginButton) {
+            String userText;
+            String pwdText;
+            userText = userTextField.getText();     
+            pwdText = new String(passwordField.getPassword());
+            if (userText.equalsIgnoreCase("Admin") && pwdText.equalsIgnoreCase("Admin")) {
+            	dispose();
+            	Admin java= new Admin();
+            	java.Admin();
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+                //lblMessage.setText("Incorrect user or pw.");
+               // JOptionPane.setTextFill(Color.RED);
+            }
+
+        }
+        if (e.getSource() == resetButton) {
+            userTextField.setText("");
+            passwordField.setText("");
+        }
+        if (e.getSource() == Home) {
+        	dispose();
+            MainScreen master = new MainScreen();
+            master.MainScreen();
+        }
+        if (e.getSource() == showPassword) {
+            if (showPassword.isSelected()) {
+                passwordField.setEchoChar((char) 0);
+            } else {
+                passwordField.setEchoChar('*');
+            }
+
+
+        }
+    }
+
+}
+public class Login1 {
+	public static void main(String[] a) {
+	    LoginFrame frame = new LoginFrame();
+	    frame.setTitle("GoGreen");
+	    frame.setBounds(200, 200, 400, 400);
+
+	    JLabel l1 = new JLabel("Green Energy Ltd");
+	    l1.setBounds(85, 30, 300, 30);
+	    l1.setFont(new Font("Verdana", Font.BOLD, 22));
+	    l1.setForeground(Color.BLACK);
+
+	    frame.getContentPane().add(l1); 
+
+	    frame.getContentPane().setBackground(Color.CYAN);
+
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setResizable(false);
+	    frame.setVisible(true);
+	}
+
+
+}

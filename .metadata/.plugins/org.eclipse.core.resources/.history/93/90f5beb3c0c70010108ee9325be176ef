@@ -1,0 +1,105 @@
+package Login;
+
+
+import javax.swing.*;
+
+
+import admin.Login1;
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.annotation.*;
+import emp.Logine;
+public class MainScreen  {
+    public static void main(String[] args)
+    {
+         new prop();
+    }
+
+	public void MainScreen() {
+		new prop();
+		
+	}
+}
+class prop implements ActionListener {
+	
+    protected static final Object Admin = null;
+	JFrame frame=new JFrame();
+    JButton button=new JButton("Admin");
+    JButton button1=new JButton("Employee");
+  
+
+    
+ prop(){
+        prepareGUI();
+        buttonProperties();
+        button1Properties();
+        
+    }
+ 
+    public void prepareGUI(){
+        frame.setTitle("GoGreen");
+        JLabel l1,l2;  
+        l1=new JLabel("Green Energy Ltd");  
+        l1.setBounds(80,30,300,30);
+        l1.setFont(new Font("Verdana", Font.BOLD ,24));
+        l1.setForeground(Color.BLACK);
+        l2=new JLabel("LOGIN AS");  
+        l2.setBounds(149,100,300,30);
+        l2.setForeground(Color.BLACK);
+        l2.setFont(new Font("Verdana", Font.BOLD ,15));
+        frame.add(l1);
+        frame.add(l2);
+        frame.getContentPane().setLayout(null);
+        frame.setVisible(true);
+        frame.setBounds(200,200,400,400);
+        frame.getContentPane().setBackground(Color.CYAN);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setResizable(false);
+        }
+    
+
+    public void buttonProperties()
+    { 
+    	button.setForeground(Color.black);
+        button.setBounds(140,160,100,40);
+        frame.add(button);
+        button.addActionListener(new ActionListener()
+        		{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						frame.setVisible(false);
+						 frame.dispose();
+				            	Login1 java= new Login1();
+				            	
+				            } 
+											});
+    }
+    public void button1Properties() 
+    {
+    	button1.setForeground(Color.BLACK);
+    	 button1.setBounds(140, 230, 100,40);
+    	frame.add(button1);
+    	button1.addActionListener(new ActionListener() 
+    	{
+    		@Override
+            public void actionPerformed(ActionEvent e)
+    		{
+    			
+                frame.dispose();
+                Logine master=new Logine();
+                master.Logine();
+    		}   
+    		});
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
+}
