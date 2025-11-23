@@ -1,0 +1,103 @@
+# 🌿 GoGreen Billing & Inventory Management System
+
+**GoGreen** is a Java Swing-based desktop application designed for **Billing and inventory management** for small businesses. It allows employees to manage products, generate bills, update inventory, and print receipts seamlessly.  
+
+---
+
+## ✨ Features
+
+- **Employee Login**:  
+- **Product Management**: View all products, descriptions, prices, and stock quantity.  
+- **Billing System**:  
+  - Generate payment receipts 
+  - Add multiple items with quantities  
+  - Calculate total amount automatically  
+  - Print receipts  
+- **Inventory Updates**: Product quantities automatically updated after billing.  
+- **User-Friendly UI**: Easy-to-use interface with buttons, forms, and tables.  
+- **Logout & Home Navigation**: Quick access to home screen or logout.  
+
+---
+
+## 💻 Technologies Used
+
+- **Language**: Java  
+- **GUI**: Java Swing  
+- **Database**: MySQL  
+- **JDBC**: MySQL Connector/J for database communication  
+
+---
+
+##  Steps to run the Application:
+1) Clone the repository.
+2) Open the project in IntelliJ IDEA or Eclipse.
+3) Add your MySQL database credentials in **db_connection/MySQLConnection.java**.
+4) Ensure your database has a table **itemlist** with the following columns:
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int          | NO   | PRI | NULL    | auto_increment |
+| Productname | varchar(255) | YES  |     | NULL    |                |
+| Description | text         | YES  |     | NULL    |                |
+| Quantity    | int          | YES  |     | NULL    |                |
+| Price       | int          | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+  Also another table named **orderedlist** with following columns:
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| Id          | int          | NO   | PRI | NULL    | auto_increment |
+| PaymentDate | varchar(255) | YES  |     | NULL    |                |
+| ProductName | varchar(255) | YES  |     | NULL    |                |
+| Price       | int          | YES  |     | NULL    |                |
+| Quantity    | int          | YES  |     | NULL    |                |
+| OrderId     | varchar(255) | YES  |     | NULL    |                |
+| TotalPrice  | int          | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5) Run the MainScreen.java class to start the application. (note : currently cred are hardcoded as its just a demonstration)
+Hardcoded credentials=> Admin-> username: Admin, password: Admin3187     and for Employee-> username: Emp1,  Password: Emp1admin
+
+---
+
+## 🛠️ Database Connection
+
+Database connectivity is handled in the `db_connection` package.  
+> **Important:** This file is **ignored in Git** (`.gitignore`) to protect sensitive credentials.  
+
+Here’s the **template with placeholders** for your own credentials:
+
+```java
+package db_connection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class MySQLConnection {
+    
+    private static String ConnURL = "jdbc:mysql://localhost:3306/YOUR_DATABASE_NAME";
+    private static String username = "YOUR_DB_USERNAME";
+    private static String password = "YOUR_DB_PASSWORD";
+    
+    private static String forNameClassVar = "com.mysql.cj.jdbc.Driver";
+    
+    public static Connection DBConn() {
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection(ConnURL, username, password);
+        } catch(Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return con;
+    }
+}
+
+```
+Structure: 
+GoGreen/
+├── emp/                
+├── admin/               
+├── db_connection/       
+├── .gitignore           
+└── README.md
