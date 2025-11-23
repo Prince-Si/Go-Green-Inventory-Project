@@ -33,28 +33,69 @@
 2) Open the project in IntelliJ IDEA or Eclipse.
 3) Add your MySQL database credentials in **db_connection/MySQLConnection.java**.
 4) Ensure your database has a table **itemlist** with the following columns:
-+-------------+--------------+------+-----+---------+----------------+
-| Field       | Type         | Null | Key | Default | Extra          |
-+-------------+--------------+------+-----+---------+----------------+
-| id          | int          | NO   | PRI | NULL    | auto_increment |
-| Productname | varchar(255) | YES  |     | NULL    |                |
-| Description | text         | YES  |     | NULL    |                |
-| Quantity    | int          | YES  |     | NULL    |                |
-| Price       | int          | YES  |     | NULL    |                |
-+-------------+--------------+------+-----+---------+----------------+
+<table>
+  <tr>
+    <th>Field</th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td>Productname</td>
+    <td>varchar(255)</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>text</td>
+  </tr>
+  <tr>
+    <td>Quantity</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td>Price</td>
+    <td>int</td>
+  </tr>
+</table>
 
   Also another table named **orderedlist** with following columns:
-+-------------+--------------+------+-----+---------+----------------+
-| Field       | Type         | Null | Key | Default | Extra          |
-+-------------+--------------+------+-----+---------+----------------+
-| Id          | int          | NO   | PRI | NULL    | auto_increment |
-| PaymentDate | varchar(255) | YES  |     | NULL    |                |
-| ProductName | varchar(255) | YES  |     | NULL    |                |
-| Price       | int          | YES  |     | NULL    |                |
-| Quantity    | int          | YES  |     | NULL    |                |
-| OrderId     | varchar(255) | YES  |     | NULL    |                |
-| TotalPrice  | int          | YES  |     | NULL    |                |
-+-------------+--------------+------+-----+---------+----------------+
+  <table>
+  <tr>
+    <th>Field</th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td>PaymentDate</td>
+    <td>varchar(255)</td>
+  </tr>
+  <tr>
+    <td>ProductName</td>
+    <td>varchar(255)</td>
+  </tr>
+  <tr>
+    <td>Price</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td>Quantity</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td>OrderId</td>
+    <td>varchar(255)</td>
+  </tr>
+  <tr>
+    <td>TotalPrice</td>
+    <td>int</td>
+  </tr>
+</table>
+
 5) Run the MainScreen.java class to start the application. (note : currently cred are hardcoded as its just a demonstration)
 Hardcoded credentials=> Admin-> username: Admin, password: Admin3187     and for Employee-> username: Emp1,  Password: Emp1admin
 
@@ -94,6 +135,7 @@ public class MySQLConnection {
 }
 
 ```
+---
 Structure: 
 GoGreen/
 ├── emp/                
