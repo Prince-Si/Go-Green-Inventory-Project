@@ -1,10 +1,10 @@
-# 🌿 GoGreen Billing & Inventory Management System
+#  GoGreen Billing & Inventory Management System
 
 **GoGreen** is a Java Swing-based desktop application designed for **Billing and inventory management** for small businesses. It allows employees to manage products, generate bills, update inventory, and print receipts seamlessly.  
 
 ---
 
-## ✨ Features
+##  Features
 
 - **Employee Login**:  
 - **Product Management**: View all products, descriptions, prices, and stock quantity.  
@@ -19,7 +19,7 @@
 
 ---
 
-## 💻 Technologies Used
+##  Technologies Used
 
 - **Language**: Java  
 - **GUI**: Java Swing  
